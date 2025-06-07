@@ -30,3 +30,29 @@ document.getElementById('myForm').addEventListener('submit', async (e) => {
         resultDiv.classList.remove('d-none');
     }
 });
+
+// Loading items after clicking show items button
+document.getElementById('showItems').addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    const resultDiv = document.getElementById('result');
+
+    try {
+        const res = await fetch('http://localhost:3000/items');
+        if (!res.ok) {
+            throw new Error(`Failed to fetch items: ${res.status}`);
+        }
+
+        const items = await res.json();
+        
+        resultDiv.innerHTML = `
+            <strong>Data Coming From API:</strong><br>
+            <pre>${JSON.stringify(items, null, 2)}</pre>
+        `;
+        resultDiv.classList.remove('d-none');
+    } catch (error) {
+        console.error('Error loading items:', error);
+        resultDiv.innerHTML = `<strong class="text-warning">Error:</strong> ${error.message}`;
+        resultDiv.classList.remove('d-none');
+    }
+})

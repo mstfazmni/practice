@@ -1,6 +1,10 @@
 html, body {
     height: 100%;
 }
-.container-custome{
-    height: 100vh;
+
+#result pre {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-y: auto;
 }
