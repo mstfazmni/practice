@@ -1,8 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const Item = require('./models/Item');
 const app = express();
 // read JSON data from requests
+app.use(cors());
 app.use(express.json());
 
 // connecting our server to mongoDB database
