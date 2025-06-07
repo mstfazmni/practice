@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const Item = require('./models/Item');
 const app = express();
 // read JSON data from requests
 app.use(express.json());
@@ -20,39 +21,53 @@ app.listen(PORT, () => {
 });
 
 // create(POST)
-let items = [];
 
-app.post('/items', (req, res) => {
-    const item = req.body;
-    item.id = Date.now();
-    items.push(item);
-    res.status(201).json(item);
+
+app.post('/items', async (req, res) => {
+    try{
+        const item = new Item(req.body);
+        await item.save();
+        res.status(201).json(item);
+    } catch (error) {
+        res.status(404).json({ error: error.message });
+    }
 });
 
 // read(GET) All
-app.get('/items', (req, res) => {
+app.get('/items', async (req, res) => {
+    const items = await Item.find();
     res.json(items);
 });
 // GET One
-app.get('/items/:id', (req, res) => {
-    const item = items.find(i => i.id == req.params.id);
-    if (!item) return res.status(404).send("Item Not Found");
-    res.json(item);
+app.get('/items/:id', async (req, res) => {
+    try {
+         const item = await Item.findById(req.params.id);
+        if (!item) return res.status(404).send("Item Not Found");
+        res.json(item);
+    }catch (error) {
+        res.status(400).send('Indavlid ID');
+    }
+   
 });
 
 // update (PUT)
-app.put('/items/:id', (req, res) => {
-    const index = items.findIndex(i => i.id == req.params.id);
-    if(index === -1) return res.status(404).send("Item Not Found");
-    items[index] = {...items[index], ...req.body};
-    res.json(items[index]);
+app.put('/items/:id', async (req, res) => {
+    try{
+        const item = await Item.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        if (!item) return res.status(404).send('Item not found');
+        res.json(item);
+    } catch (error) {
+        res.status(400).send('Invalid ID');
+    }
 });
 
 // delete(DELETE)
-app.delete('/items/:id', (req, res) => {
-    const index = items.findIndex(i => i.id == req.params.id);
-    if (index === -1) return res.status(404).send("Item Not Found");
-    // splice removes the item from the array and returns it
-    const deletedItem = items.splice(index, 1);
-    res.json(deletedItem[0]);
+app.delete('/items/:id', async (req, res) => {
+     try {
+        const item = await Item.findByIdAndDelete(req.params.id);
+        if (!item) return res.status(404).send('Item not found');
+        res.send('Item deleted');
+    } catch {
+    res.status(400).send('Invalid ID');
+  }
 });
