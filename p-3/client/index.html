@@ -13,7 +13,7 @@
             <div class="container">
                 <!-- left part of nav -->
                 <div class="navbar-brand">
-                    <img src="./assets/mz-f-b.png" class="logo-img"></img>
+                    <img src="./assets/mz-f-b.png" class="logo-img">
                 </div>
 
                 <!-- right part of nav -->
@@ -40,18 +40,28 @@
             </div>
         </nav>
         <!-- page container -->
-        <div class="container">
-            <form id="myLoginForm">
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username:</label>
-                    <input type="text" name="username" id="username" placeholder="Enter Username..." class="form-control">
+        <div class="container d-flex flex-column flex-md-row justify-content-center align-items-center container-page">
+            <div class="row">
+                <div class="col-6 me-md-3 w-100">
+                     <h2 class="text-decoration-underline">Enter Your Login Info</h2>
                 </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">E-mail:</label>
-                    <input type="email" name="email" id="email" placeholder="Enter Email..." class="form-control">
+            </div>
+            <div class="row">
+                <div class="col-6 w-100 ">
+                    <form id="myLoginForm" class="shadow p-3 rounded">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username:</label>
+                            <input type="text" name="username" id="username" placeholder="Enter Username..." class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">E-mail:</label>
+                            <input type="email" name="email" id="email" placeholder="Enter Email..." class="form-control" required>
+                        </div>
+                        <button type="button" id="loginBtn" class="btn btn-secondary">Login</button>
+                    </form>
                 </div>
-                <button type="button" id="loginBtn" class="btn btn-secondary">Login</button>
-            </form>
+            </div>
+           
         </div>
 
 
