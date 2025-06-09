@@ -24,26 +24,8 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-
-// Create POST http method
-// app.post('/users', async (req, res) => {
-//     try {
-//         const user = await User(req.body);
-//         await user.save();
-//         res.status(201).json(user);
-//     } catch (error) {
-//         res.status(400).json({error: error.message});
-//     }
-    
-// });
-
-// Read GET http method
-// app.get('/users', async (req, res) => {
-//     const users = await User.find();
-//     res.json(users);
-// });
-
-// Login check
+// *********************************************************************************************** User method
+// Login check for users
 app.post('/login', async (req, res) => {
     const {username, email} = req.body;
 
@@ -59,7 +41,7 @@ app.post('/login', async (req, res) => {
     }
  });
 
-
+// *********************************************************************************************** Task methods
 // POST create Tasks http method
 app.post('/tasks', async(req, res) => {
     try {
@@ -74,8 +56,8 @@ app.post('/tasks', async(req, res) => {
 // GET all Tasks http method
 app.get('/tasks', async(req, res) => {
     try {
-        const tasks = await Task.find();
-        res.status(200).json(tasks);
+        const tasks = await Task.find(); //This returns an array of all task documents
+        res.status(200).json(tasks); // Sends an array of task objects to frontend
     } catch (error) {
         res.status(400).json({message : error.message});
     }
