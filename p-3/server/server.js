@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const User = require('./models/User');
+const Task = require('./models/Task');
 const cors = require('cors');
 require('dotenv').config();
 const mongoDBURL = process.env.MONGO_URL;
@@ -25,22 +26,22 @@ app.listen(PORT, () => {
 
 
 // Create POST http method
-app.post('/users', async (req, res) => {
-    try {
-        const user = await User(req.body);
-        await user.save();
-        res.status(201).json(user);
-    } catch (error) {
-        res.status(400).json({error: error.message});
-    }
+// app.post('/users', async (req, res) => {
+//     try {
+//         const user = await User(req.body);
+//         await user.save();
+//         res.status(201).json(user);
+//     } catch (error) {
+//         res.status(400).json({error: error.message});
+//     }
     
-});
+// });
 
 // Read GET http method
-app.get('/users', async (req, res) => {
-    const users = await User.find();
-    res.json(users);
-});
+// app.get('/users', async (req, res) => {
+//     const users = await User.find();
+//     res.json(users);
+// });
 
 // Login check
 app.post('/login', async (req, res) => {
@@ -59,4 +60,23 @@ app.post('/login', async (req, res) => {
  });
 
 
- 
+// POST create Tasks http method
+app.post('/tasks', async(req, res) => {
+    try {
+        const task = await Task(req.body);
+        await task.save();
+        res.status(201).json(task);
+    } catch (error) {
+
+    }
+});
+
+// GET all Tasks http method
+app.get('/tasks', async(req, res) => {
+    try {
+        const tasks = await Task.find();
+        res.status(200).json(tasks);
+    } catch (error) {
+        res.status(400).json({message : error.message});
+    }
+});
