@@ -1,8 +1,19 @@
 const express = require('express');
+const mongoose = require('mongoose');
+require('dotenv').config();
+const mongoDBURL = process.env.mongoURL;
 const app = express();
 
 // for parsing JSON
 app.use(express.json());
+
+// connecting to mongoDB
+mongoose.connect(mongoDBURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+.then(() => console.log('Connected to MongoDB!'))
+.catch((error) => console.error('MongoDB connection error: ', error));
 
 // start the server
 const PORT = 3000;
@@ -23,4 +34,9 @@ app.post('/users', (req, res) => {
 // Read GET http method
 app.get('/users', (req, res) => {
     res.json(users);
+});
+
+// Update Put http method
+app.put('/users/:id', (req, res) => {
+
 });
