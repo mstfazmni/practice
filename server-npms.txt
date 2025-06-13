@@ -1,0 +1,17 @@
+✅ npm init -y 
+//  allows you to load environment variables from a .env file
+✅ npm install dotenv
+✅ npm install express mongoose
+✅ Create index.js(or server.js) and connect MongoDB
+✅ Define a model (like Item.js)
+✅ Set up routes: POST, GET, PUT, DELETE
+✅ Test in Postman
+✅ (Optional) Connect to frontend using fetch() in HTML
+
+// Allow cross-origin requests
+✅ npm install cors
+✅ const cors = require('cors');
+✅ app.use(cors());
+
+//Mock API
+https://jsonplaceholder.typicode.com/users
