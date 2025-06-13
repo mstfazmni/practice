@@ -1,4 +1,5 @@
 ✅ npm init -y 
+✅ npm install express
 //  allows you to load environment variables from a .env file
 ✅ npm install dotenv
 ✅ npm install express mongoose
